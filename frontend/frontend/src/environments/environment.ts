@@ -5,6 +5,18 @@
 export const environment = {
   production: false,
   apiBaseUrl: 'http://localhost:7071/api/',
+  auth: {
+    clientId: '<client-id-guid>',
+    authority: 'https://login.microsoftonline.com/<authority-id-guid>',
+    redirectUri: 'http://localhost:4210',
+    postLogoutRedirectUri: 'http://localhost:4210',
+  },
+  resources: {
+    backendApi: {
+      resourceUri: 'https://<backend-api-url>',
+      resourceScope: '/user_impersonation',
+    },
+  },
 };
 
 /*
