@@ -1,6 +1,9 @@
 <a routerLink="">Home</a>&nbsp;
 <button *ngIf="!loggedIn" (click)="login()">Login</button>
-<button *ngIf="loggedIn" (click)="logout()">Logout</button>
+<span *ngIf="loggedIn">
+  <app-user-name></app-user-name>&nbsp;
+  <button (click)="logout()">Logout</button>
+</span>
 <hr>
 
 <!--This is to avoid reload during acquireTokenSilent() because of hidden iframe -->

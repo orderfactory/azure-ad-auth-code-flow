@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authService.handleRedirectObservable().subscribe({
-      next: (result) => console.log(result),
       error: (error) => console.log(error),
     });
 

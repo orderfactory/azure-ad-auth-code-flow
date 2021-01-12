@@ -8,13 +8,17 @@ export const environment = {
   auth: {
     clientId: '<client-id-guid>',
     authority: 'https://login.microsoftonline.com/<authority-id-guid>',
-    redirectUri: 'http://localhost:4210',
-    postLogoutRedirectUri: 'http://localhost:4210',
+    redirectUri: 'http://localhost:4200',
+    postLogoutRedirectUri: 'http://localhost:4200',
   },
   resources: {
     backendApi: {
       resourceUri: 'https://<backend-api-url>',
       resourceScope: '/user_impersonation',
+    },
+    graphApi: {
+      resourceUri: 'https://graph.microsoft.com',
+      resourceScope: 'user.read',
     },
   },
 };

@@ -47,6 +47,9 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
     environment.resources.backendApi.resourceUri +
       environment.resources.backendApi.resourceScope,
   ]);
+  protectedResourceMap.set(environment.resources.graphApi.resourceUri, [
+      environment.resources.graphApi.resourceScope,
+  ]);
 
   return {
     interactionType: InteractionType.Redirect,

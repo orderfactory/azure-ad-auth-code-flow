@@ -8,13 +8,15 @@ import { AuthModule } from './auth/auth.module';
 import { DoSomethingComponent } from './do-something/do-something.component';
 import { InitialComponent } from './initial/initial.component';
 import { LoginComponent } from './login/login.component';
+import { UserNameComponent } from './user-name/user-name.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DoSomethingComponent,
     InitialComponent,
-    LoginComponent
+    LoginComponent,
+    UserNameComponent
   ],
   imports: [
     BrowserModule,
