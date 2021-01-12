@@ -1,1 +1,7 @@
-<p>login works!</p>
+<a routerLink="">Home</a>&nbsp;
+<button *ngIf="!loggedIn" (click)="login()">Login</button>
+<button *ngIf="loggedIn" (click)="logout()">Logout</button>
+<hr>
+
+<!--This is to avoid reload during acquireTokenSilent() because of hidden iframe -->
+<router-outlet *ngIf="!isIframe"></router-outlet>

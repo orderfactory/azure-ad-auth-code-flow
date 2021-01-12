@@ -9,18 +9,17 @@ const guards: any[] = environment.production ? [MsalGuard] : [];
 
 const routes: Routes = [
   {
-    path: 'do-something',
+    path: 'do-something/:what',
     component: DoSomethingComponent,
+    canActivate: guards,
   },
   {
     path: 'code',
     component: InitialComponent,
-    canActivate: guards,
   },
   {
     path: '',
     component: InitialComponent,
-    canActivate: guards,
   },
 ];
 

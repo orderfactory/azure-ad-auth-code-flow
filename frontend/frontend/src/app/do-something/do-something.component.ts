@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
@@ -9,23 +9,22 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./do-something.component.scss'],
 })
 export class DoSomethingComponent implements OnInit {
-  private whatToDo = 'do-nothing';
   backendResponse = '';
 
-  constructor(private router: Router, private http: HttpClient) {
-    this.whatToDo = this.router?.getCurrentNavigation()?.extras?.state?.what;
-  }
+  constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit(): void {
-    if (this.whatToDo) {
+    this.route.paramMap.subscribe((paramMap) => {
+      const whatToDo = paramMap.get('what') ?? 'do-nothing';
+
       this.http
-        .get<string>(environment.apiBaseUrl + this.whatToDo, {
+        .get<string>(environment.apiBaseUrl + whatToDo, {
           responseType: 'text' as 'json',
         })
         .subscribe(
           (data) => (this.backendResponse = data),
           (error) => (this.backendResponse = (error as HttpErrorResponse).error)
         );
-    }
+    });
   }
 }

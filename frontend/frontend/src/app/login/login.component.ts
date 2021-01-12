@@ -1,11 +1,23 @@
-import { Component, OnDestroy, OnInit, Inject, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  Inject,
+  ViewEncapsulation,
+} from '@angular/core';
 import {
   MsalService,
   MsalBroadcastService,
   MSAL_GUARD_CONFIG,
   MsalGuardConfiguration,
 } from '@azure/msal-angular';
-import { EventMessage, EventType, InteractionType } from '@azure/msal-browser';
+import {
+  EventMessage,
+  EventType,
+  InteractionType,
+  PopupRequest,
+  RedirectRequest,
+} from '@azure/msal-browser';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -14,7 +26,7 @@ import { environment } from 'src/environments/environment';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class LoginComponent implements OnInit, OnDestroy {
   isIframe = false;
@@ -24,10 +36,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private authService: MsalService,
-    private msalBroadcastService: MsalBroadcastService,
+    private msalBroadcastService: MsalBroadcastService
   ) {}
 
   ngOnInit(): void {
+    this.authService.handleRedirectObservable().subscribe({
+      next: (result) => console.log(result),
+      error: (error) => console.log(error),
+    });
+
     if (!environment.production) {
       return;
     }
@@ -62,14 +79,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.msalGuardConfig.interactionType === InteractionType.Popup) {
       if (this.msalGuardConfig.authRequest) {
         this.authService
-          .loginPopup({ ...this.msalGuardConfig.authRequest })
+          .loginPopup({ ...this.msalGuardConfig.authRequest } as PopupRequest)
           .subscribe(() => this.checkAccount());
       } else {
         this.authService.loginPopup().subscribe(() => this.checkAccount());
       }
     } else {
       if (this.msalGuardConfig.authRequest) {
-        this.authService.loginRedirect({ ...this.msalGuardConfig.authRequest });
+        this.authService.loginRedirect({
+          ...this.msalGuardConfig.authRequest,
+        } as RedirectRequest);
       } else {
         this.authService.loginRedirect();
       }
