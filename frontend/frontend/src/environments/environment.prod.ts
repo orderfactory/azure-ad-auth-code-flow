@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://<front-end-url>/api/',
+  apiBaseUrl: 'https://<backend-api-url>/api/',
   auth: {
     clientId: '<client-id-guid>',
     authority: 'https://login.microsoftonline.com/<authority-id-guid>',
